@@ -1,72 +1,12 @@
-# Data_Science
-WikipediaCrawler.py
-
-import time
-import urllib
-
-import bs4
-import requests
-
-
-start_url = "https://en.wikipedia.org/wiki/Special:Random"
-target_url = "https://en.wikipedia.org/wiki/Philosophy"
-
-def find_first_link(url):
-    response = requests.get(url)
-    html = response.text
-    soup = bs4.BeautifulSoup(html, "html.parser")
-
-    # This div contains the article's body
-    # (June 2017 Note: Body nested in two div tags)
-    content_div = soup.find(id="mw-content-text").find(class_="mw-parser-output")
-
-    # stores the first link found in the article, if the article contains no
-    # links this value will remain None
-    article_link = None
-
-    # Find all the direct children of content_div that are paragraphs
-    for element in content_div.find_all("p", recursive=False):
-        # Find the first anchor tag that's a direct child of a paragraph.
-        # It's important to only look at direct children, because other types
-        # of link, e.g. footnotes and pronunciation, could come before the
-        # first link to an article. Those other link types aren't direct
-        # children though, they're in divs of various classes.
-        if element.find("a", recursive=False):
-            article_link = element.find("a", recursive=False).get('href')
-            break
-
-    if not article_link:
-        return
-
-    # Build a full url from the relative article_link url
-    first_link = urllib.parse.urljoin('https://en.wikipedia.org/', article_link)
-
-    return first_link
-
-def continue_crawl(search_history, target_url, max_steps=25):
-    if search_history[-1] == target_url:
-        print("We've found the target article!")
-        return False
-    elif len(search_history) > max_steps:
-        print("The search has gone on suspiciously long, aborting search!")
-        return False
-    elif search_history[-1] in search_history[:-1]:
-        print("We've arrived at an article we've already seen, aborting search!")
-        return False
-    else:
-        return True
-
-article_chain = [start_url]
-
-while continue_crawl(article_chain, target_url):
-    print(article_chain[-1])
-
-    first_link = find_first_link(article_chain[-1])
-    if not first_link:
-        print("We've arrived at an article with no links, aborting search!")
-        break
-
-    article_chain.append(first_link)
-
-    time.sleep(2) # Slow things down so as to not hammer Wikipedia's servers
-
+Data Science is an exciting field to work in, combining advanced statistical and quantitative skills with real-world programming ability. There are many potential programming languages that the aspiring data scientist might consider specializing in.
+While there is no correct answer, there are several things to take into consideration. Your success as a data scientist will depend on many points, including:
+Specificity
+When it comes to advanced data science, you will only get so far reinventing the wheel each time. Learn to master the various packages and modules offered in your chosen language. The extent to which this is possible depends on what domain-specific packages are available to you in the first place!
+Generality
+A top data scientist will have good all-round programming skills as well as the ability to crunch numbers. Much of the day-to-day work in data science revolves around sourcing and processing raw data or ‘data cleaning’. For this, no amount of fancy machine learning packages are going to help.
+Productivity
+In the often fast-paced world of commercial data science, there is much to be said for getting the job done quickly. However, this is what enables technical debt to creep in — and only with sensible practices can this be minimized.
+Performance
+In some cases it is vital to optimize the performance of your code, especially when dealing with large volumes of mission-critical data. Compiled languages are typically much faster than interpreted ones; likewise statically typed languages are considerably more fail-proof than dynamically typed. The obvious trade-off is against productivity.
+To some extent, these can be seen as a pair of axes (Generality-Specificity, Performance-Productivity). Each of the languages below fall somewhere on these spectra.
+With these core principles in mind, let’s take a look at some of the more popular languages used in data science. What follows is a combination of research and personal experience of myself, friends and colleagues — but it is by no means definitive! In approximately order of popularity, here goes:
