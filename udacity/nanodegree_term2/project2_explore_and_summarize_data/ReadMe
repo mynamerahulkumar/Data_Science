@@ -1,0 +1,39 @@
+White wine
+
+My Data set consist of 4898 white wines with 11 variables
+Data fields
+Input variables (based on physicochemical tests): 
+1 - fixed acidity 
+2 - volatile acidity 
+3 - citric acid 
+4 - residual sugar 
+5 - chlorides 
+6 - free sulfur dioxide 
+7 - total sulfur dioxide 
+8 - density 
+9 - pH 
+10 - sulphates 
+11 - alcohol
+
+
+Output variable (based on sensory data): 
+12 - quality (score between 0 and 10)
+
+Other:
+
+13 - id (unique ID for each sample, needed for submission)
+#Reflection
+The white wine data set contains information on almost 4898 white wines with 11 variables. I started by understanding the individual variables in the data set, and then I explored interesting questions and leads as I continued to make observations on plots. Eventually, I explored the quality of diamonds across many variables and created a linear model to predict diamond prices.
+
+This tidy data set contains 4,898 white wines with 11 variables on quantifying the chemical properties of each wine. At least 3 wine experts rated the quality of each wine, providing a rating between 0 (very bad) and 10 (very excellent).
+The main features in the data set are alcohole and quality I’d like to determine which ingredient are best for predicting the quality of a wine I suspect alcohol and some combination of the other variables can be used to build a predictive model to quality of wine
+
+
+(worst) —————-> (best)
+Quality:3,4,5,6,7,8,9 Its a continuous number
+
+
+There was a clear trend between the volume or carat weight of a diamond and its price. I was surprised that depth or table did not have a strong positive correlation with price, but these variables are likely to be represented by categorical variables: color, cut, and clarity. I struggled understanding the decrease in median price as the level of cut and clarity improved, but this became more clear when I realized that most of the data contained ideal cut diamonds. For the linear model, all diamonds were included since information on price, carat, color, clarity, and cut were available for all the diamonds. After transforming price to log scale and taking the cube root of carat, the model was able to account for 98.4% of the variance in the dataset.
+
+Some limitations of this model include the source of the data.Given the data set 
+has only 4898 wines data availabel.Which is not very large.These prediction might get wrong.Since it is not population data.To Investigate the data further I would like to gather much more data.I will train the data .I would like to analyze the data which factor describes more quality of wine.I would like to see which combination of ingriedents customers like more.
