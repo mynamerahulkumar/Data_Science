@@ -1,0 +1,441 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+#Explore and Summarize white wine product by Rahul Kumar
+
+---
+"Univaraite plot section"
+---
+My Data set consist of 4898 white wines with 11 variables
+Data fields
+Input variables (based on physicochemical tests): 
+1 - fixed acidity 
+2 - volatile acidity 
+3 - citric acid 
+4 - residual sugar 
+5 - chlorides 
+6 - free sulfur dioxide 
+7 - total sulfur dioxide 
+8 - density 
+9 - pH 
+10 - sulphates 
+11 - alcohol
+
+
+Output variable (based on sensory data): 
+12 - quality (score between 0 and 10)
+
+Other:
+
+13 - id (unique ID for each sample, needed for submission)
+```{r}
+#library(ggplot2)
+#install.packages('knitr',dependencies = T)
+#install.packages("lmtest", repos = "http://cran.us.r-project.org")
+library(lmtest)
+library(knitr)
+library(ggplot2)
+library(GGally)
+library(scales)
+library(memisc)
+library(dplyr)
+list.files()
+pf=read.csv('wineQualityWhites.csv')
+names(pf)
+head(pf)
+```
+
+Summary
+```{r}
+summary(pf)
+
+```
+
+PLOT EACH VARIABLE
+```{R}
+names(pf)
+ggplot(aes(x=fixed.acidity,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+
+
+      
+```
+```{r}
+summary(pf$fixed.acidity)
+
+```
+We can see that minimum fixed acidity is 3.8 and Max fixed acidity is 14.2 .Quality of wine is incresing till median value of fixed acidity then it start decresing by incresing fixed.acidity
+
+
+```{r}
+ggplot(aes(x=volatile.acidity,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+
+```
+```{r}
+summary(pf$volatile.acidity)
+```
+We can see that min volatile acidity is 0.080 and max volatile acidity is 1.100 .
+We can see that quality of wine increses till median value 0.2600 and then it start decresing
+```{r}
+ggplot(aes(x=citric.acid,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$citric.acid)
+```
+We can see that min citric acid is 0.00 and max citric acid is 1.66.We can see that wine quality increses till median value 0.32 and then by incresing citric acid                   wine quality decreses.
+```{r}
+ggplot(aes(x=residual.sugar,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$residual.sugar)
+```
+We can see that min residual sugar is 0.6 and max sugar is 65.8 .We can see that best amount to give sugar is approx 5.2.If we can increse more sugar quality of wine decrease.
+```{r}
+ggplot(aes(x=chlorides,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$chlorides)
+```
+We can see that min chloride in 0.009 and max chloride is 0.346.We can see that by incresing the amount of chloride till median 0.043 .Its quality is incresing.After that by incresing quantity of chlorides quality of wine decreses.
+
+```{r}
+ggplot(aes(x=free.sulfur.dioxide,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$free.sulfur.dioxide)
+```
+We can see that min free sulfur dioxide in 2.00 and max free sulfur dioxide is 289.00.We can see that by incresing the amount of free sulfur dioxide till median 34 .Its quality is incresing.After that by incresing quantity of free sulfur dioxide quality of wine decreses.
+```{r}
+ggplot(aes(x=total.sulfur.dioxide,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$total.sulfur.dioxide)
+```
+We can see that min total sulfur dioxide in 9.00 and max total sulfur dioxide is 440.00.We can see that by incresing the amount of total sulfur dioxide till median 134 .Its quality is incresing.After that by incresing quantity of total sulfur dioxide quality of wine decreses.
+```{r}
+ggplot(aes(x=density,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$density)
+```
+We can see that min density in 0.9871 and max density is 1.039.We can see that by incresing the amount of density till median 0.9937 .Its quality is incresing.After that by incresing quantity of density quality of wine decreses.
+```{r}
+ggplot(aes(x=pH,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$pH)
+```
+We can see that min pH in 2.720 and max pH is 3.82.We can see that by incresing the amount of pH till median 3.180 ,Its quality is incresing.After that by incresing quantity of pH quality of wine decreses.
+```{r}
+ggplot(aes(x=sulphates,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$sulphates)
+```
+We can see that min sulphates in 0.220 and max sulphates is 1.080.We can see that by incresing the amount of sulphates till median 0.4700 ,Its quality is incresing.After that by incresing quantity of sulphates quality of wine decreses.
+```{r}
+ggplot(aes(x=alcohol,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+```
+```{r}
+summary(pf$alcohol)
+```
+
+We can see that min alcohol in 8.2 and max alcohol is 14.2.We can see that by incresing the amount of alcohol till median 10.40 ,Its quality is incresing.After that by incresing quantity of alcohol quality of wine decreses.
+```{r}
+summary(pf$quality)
+names(pf)
+```
+```{r}
+pf$alcohol_percentage<-cut(pf$alcohol,c(8,10,12,14,16))
+head(pf$alcohol_percentage)
+```
+#Univariate Analysis
+
+## What is the structure of your dataset?
+Answer:-
+This tidy data set contains 4,898 white wines with 11 variables on quantifying the chemical properties of each wine. At least 3 wine experts rated the quality of each wine, providing a rating between 0 (very bad) and 10 (very excellent).
+
+(worst) —————-> (best)
+Quality:3,4,5,6,7,8,9 Its a continuous number
+
+Other observations:
+
+Average quality of wine is 5.878
+By incresing the amount of ingredient till their median value quality of wine incresing.
+By increasing the quantity of ingredient above their medain quality of wine decreses.
+## What is/are the main feature(s) of interest in your dataset?
+The main features in the data set are alcohole and quality I’d like to determine which ingredient are best for predicting the quality of a wine I suspect alcohol and some combination of the other variables can be used to build a predictive model to quality of wine
+## What other features in the dataset do you think will help support your investigation into your feature(s) of interest?
+
+fixed.acidity, volatile.acidity, citric.acid, residual.sugar, chlorides,free.sulfur.dioxide,total.sulfur.dioxide,density,pH,sulphates and alcohol likely contribute to the quality of a white wine I think alcohole  contribute most to the quality  after researching information on quality of wine
+
+##Did you create any new variables from existing variables in the dataset?
+I created a variable for the alcholor percentatage group  of wine using the alcohol. This arose in the bivariate section of my analysis when I explored how the quality  of a wine  varied with its alcohol percentage. At first alcohol percentage grouping  was calculated by diving the alcohol percentage into four groups
+
+##Of the features you investigated, were there any unusual distributions? Did you perform any operations on the data to tidy, adjust, or change the form of the data? If so, why did you do this?
+
+I calculated the alcohol percentage distribution and find its correlation.Since it is strongly related to quality of wine.I have calculated pH distribution and find its correlation.Its correlated to wine quality.
+
+---
+#Bivariate Plot
+---
+```{r}
+head(pf)
+```
+The dimensions of a white wine tend to correlate with each other. The longer one dimension, then the quality of wine  is overall. The dimensions also correlate with other variables. Price correlates strongly with alcohol and other variable also
+
+
+```{r}
+set.seed(1000)
+ggpairs(pf,
+        lower = list(continuous=wrap("points",shape=I('.'))),
+          upper = list(combo=wrap("box",outlier.shape=I('.'))))
+```
+
+```{r}
+cor.test(pf$alcohol,pf$quality)
+
+```
+```{r}
+cor.test(pf$alcohol,pf$pH)
+```
+```{r}
+cor.test(pf$pH,pf$quality)
+```
+
+### Create a new function to transform the X variable
+
+```{r cuberoot transformation}
+cuberoot_trans = function() trans_new('cuberoot', transform = function(x) x^(1/3),inverse = function(x) x^3)
+```
+###cuberoot function
+From a subset of the data,fixed acidity ,total sulphur dioxide do not seem to have strong correlations with quality, but alcohol and pH are moderately correlated with quality. I want to look closer at scatter plots involving quality and some other variables like fixed acidity,alcohol,pH.
+
+
+```{r}
+ggplot(aes(fixed.acidity,quality),data=pf)+
+       geom_point()+
+       scale_x_continuous(trans = cuberoot_trans(),limits = c(6,14),
+                          breaks = c(6,8,10,12,14))+
+       scale_y_continuous(trans = cuberoot_trans(),limits = c(2,10),
+                          breaks = c(2,4,6,8,10))+
+     ggtitle('Quality(log10) by cube-root of fixed acidity')
+``` 
+```{r Overplotting Revisited}
+ggplot(aes(free.sulfur.dioxide,quality),data=pf)+
+       geom_point()+
+       scale_x_continuous(trans = cuberoot_trans(),limits = c(0,100),
+                          breaks = c(0,20,40,60,100))+
+       scale_y_continuous(trans = cuberoot_trans(),limits = c(2,10),
+                          breaks = c(2,4,6,8,10))+
+     ggtitle('Quality(log10) by cube-root of free sulphur dioxide')
+```
+
+As free sulphur dioxide  quantity   increases, the variance in quality increases. We can see that till median value of sulphur dioxide Quality increses more.After that its start decresing.
+```{r}
+cor.test(pf$free.sulfur.dioxide,pf$quality)
+```
+```{r}
+
+ggplot(aes(x=pf$alcohol_percentage,y=quality),data=pf)+
+      geom_boxplot() 
+```
+```{r}
+summary(pf$alcohol)
+```
+Ideal wine quality  have the median 10.40 . This seems really unusual since I would expect quality with an ideal alcohol percentage to have a higher quality. compared to the other groups. There are many outliers. The variation in quality tends to increase as alcohol percentage improves and then decreases for wine quality  with increse in alcohol percentage above median value.
+```{r}
+summary(pf$pH)
+pf$pH_group<-cut(pf$pH,c(2.720,3.02,3.32,3.62,3.82))
+head(pf$pH_group)
+ggplot(aes(x=pf$pH_group,y=quality),data = pf)+
+      geom_boxplot()
+```
+```{r}
+summary(pf$pH)
+```
+Ideal wine quality  have the median 10.40 . This seems really unusual since I would expect quality with an ideal pH percentage to have a higher quality. compared to the other groups. There are many outliers. The variation in quality tends to increase as pH improves and then decreases for wine quality  with increse in pH above median value.
+# Bivariate Analysis
+## Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?
+
+Quality correlates strongly with alcohol percentage and the pH.
+
+As alcohol percenate  increases, the variance in quality increases till median value. In the plot of quality vs alcohol.Quality of wine increases till median value of alcohol after that it's start decreasing. The relationship between alcohol and quality  is not regular.
+
+Based on the R^2 value, alcohol explains about 43 percent of the variance in price. Other ingredients of interest can be incorporated into the model to explain the variance in the quality
+
+
+
+
+##Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?
+
+The alcohol percentage and quality tend to correlate with each other. The higher  the alcohol percentage , then the greater the pH .
+
+## What was the strongest relationship you found?
+The quality  of a wine  is positively and strongly correlated with alcohol and pH The variables fixed.acidity and free.sulfur.dioxide also correlate with the quality  but less strongly than pH and alcohol. Either pH or alcohol could be used in a model to predict the quality of alcohol, however, both variables should not be used since they are measuring the same quality and show perfect correlation.
+
+#Multivariate Plots Section
+
+```{r}
+ggplot(aes(x=quality,y=free.sulfur.dioxide),
+       data=subset(pf,!is.na(alcohol_percentage)))+
+      geom_line(aes(color=alcohol_percentage),stat='summary',fun.y=median)
+```
+we can see that that initial quality of wine increses by decresing the free sulphur dioxide till quality 4.After this we can see that by incresing quality of wine increses by incresing the free sulphur dioxide then again by decresing by free sulphur dioxide .Quality value increses.
+```{r}
+ggplot(aes(x=quality,y=free.sulfur.dioxide),
+       data=subset(pf,!is.na(pH_group)))+
+      geom_line(aes(color=pH_group),stat='summary',fun.y=median)
+```
+We can see that that initial quality of wine increses by decresing the free sulphur dioxide till quality 4.After this we can see that by incresing quality of wine increses by incresing the free sulphur dioxide then again by decresing by free sulphur dioxide .Quality value increses.
+```{r}
+ggplot(aes(x=quality,y=volatile.acidity),
+       data=subset(pf,!is.na(pH_group)))+
+      geom_line(aes(color=pH_group),stat='summary',fun.y=median)
+names(pf)
+```
+ We can see that that initial quality of wine increses by incresing the volatile acidity till quality 4.Except pH group (3.02,3.32).After this we can see that  increses quality of wine increses by decresing volatile acidity then again by incresing volatile acidity ,Quality value increses.
+### Quality vs. fixed sulphur dioxide  and alcohol
+
+```{r}
+library(RColorBrewer)
+
+ggplot(aes(free.sulfur.dioxide,quality,color=alcohol_percentage),data=pf)+
+       geom_point(alpha=0.5,size=1,position = 'jitter')+
+       scale_color_brewer(type='div',
+            guide=guide_legend(title='Alcohol Percentage',reverse = T,
+                               override.aes = list(alpha=1,size=2)))+
+       scale_x_continuous(trans = cuberoot_trans(),limits = c(0,100),
+                          breaks = c(0,20,40,60,100))+
+       scale_y_continuous(trans = cuberoot_trans(),limits = c(2,10),
+                          breaks = c(2,4,6,8,10))+
+     ggtitle('Quality(log10) by cube-root of free sulphur dioxide and alcohol')
+```
+The plot indicates that a horizontal model could be constructed to quality of wine of variables using log10(quality) as the outcome variable and cube-root of free sulphur dioxide as the predictor variable.We can see that from the above two graph quality of wine increses till the median value of alchol percentage.By incresing alcohole percentage more than its median value wine quality decreses.
+```{r}
+ggplot(aes(free.sulfur.dioxide,quality,color=pH_group),data=pf)+
+       geom_point(alpha=0.5,size=1,position = 'jitter')+
+       scale_color_brewer(type='div',
+            guide=guide_legend(title='pH group',reverse = T,
+                               override.aes = list(alpha=1,size=2)))+
+       scale_x_continuous(trans = cuberoot_trans(),limits = c(0,100),
+                          breaks = c(0,20,40,60,100))+
+       scale_y_continuous(trans = cuberoot_trans(),limits = c(2,10),
+                          breaks = c(2,4,6,8,10))+
+     ggtitle('Quality(log10) by cube-root of free sulphur dioxide and pH group')
+
+```
+
+```{r}
+ggplot(aes(volatile.acidity,quality,color=pH_group),data=pf)+
+       geom_point(alpha=0.5,size=1,position = 'jitter')+
+       scale_color_brewer(type='div',
+            guide=guide_legend(title='pH group',reverse = T,
+                               override.aes = list(alpha=1,size=2)))+
+       scale_x_continuous(trans = cuberoot_trans(),limits = c(0,2),
+                          breaks = c(0.5,1,1.5,2))+
+       scale_y_continuous(trans = cuberoot_trans(),limits = c(2,10),
+                          breaks = c(2,4,6,8,10))+
+     ggtitle('Quality(log10) by cube-root of  volatile acidity and pH group')
+``` 
+```{r}
+ggplot(aes(x=pf$pH_group,y=quality),data = pf)+
+      geom_boxplot()
+```
+We can see that quality of wine increses by incresing alcohol value till median value of alcohol value.Ater incresing alcohol value more that its median value quality of wine decreses 
+
+```{r}
+ggplot(aes(x=pf$alcohol_percentage,y=quality),data = pf)+
+      geom_boxplot()
+```
+
+#Multivariate Analysis
+##Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?
+Idealy wines  also have the have average alcohol and pH group. The variance of wine quality increses till median of alcohol percentage after that it start decresing.
+
+
+
+The last two plots from the Multivariate section suggest that I can build a linear model and use those variables in the model to predict quality of  alcohol. The results of the model are summarized below.
+
+##Were there any interesting or surprising interactions between features?
+Increase and decrese value of quality of alcohol.You can see that by incresing the alcohol percentage till its median value quality of alcohol increses.After incresing alcohol percentage more than its median value.It's quality decreses.
+
+#Final Plots and Summary
+
+##Plot One
+```{r}
+ggplot(aes(x=pH,y=quality),data=pf)+
+      geom_histogram(stat="identity",binwidth = 1) 
+
+```
+
+##Description One
+We can see that quality of wine increses by incresing pH value till median value of pH value.Ater incresing pH value more that its median value quality of wine decreses 
+
+#Plot two
+```{r}
+ggplot(aes(x=pf$alcohol_percentage,y=quality),data=pf)+
+      geom_boxplot() 
+```
+```{r}
+ggplot(aes(x=quality,y=volatile.acidity),
+       data=subset(pf,!is.na(pH_group)))+
+      geom_line(aes(color=pH_group),stat='summary',fun.y=median)
+```
+## Description Two
+We can see that from the above two graph quality of wine increses till the median value of alchol percentage.By incresing alcohole percentage more than its median value wine quality decreses.
+ We can also see that quality of wine increses by incresing pH value till median value of pH value.Ater incresing pH value more that its median value quality of wine decreses 
+ 
+#Plot Three
+```{r}
+ggplot(aes(free.sulfur.dioxide,quality,color=alcohol_percentage),data=pf)+
+       geom_point(alpha=0.5,size=1,position = 'jitter')+
+       scale_color_brewer(type='div',
+            guide=guide_legend(title='Alcohol Percentage',reverse = T,
+                               override.aes = list(alpha=1,size=2)))+
+       scale_x_continuous(trans = cuberoot_trans(),limits = c(0,100),
+                          breaks = c(0,20,40,60,100))+
+       scale_y_continuous(trans = cuberoot_trans(),limits = c(2,10),
+                          breaks = c(2,4,6,8,10))+
+     ggtitle('Quality(log10) by cube-root of free sulphur dioxide and alcohol')
+```
+ 
+# Description Three
+The plot indicates that a horizontal model could be constructed to quality of wine of variables using log10(quality) as the outcome variable and cube-root of free sulphur dioxide as the predictor variable.We can see that from the above two graph quality of wine increses till the median value of alchol percentage.By incresing alcohole percentage more than its median value wine quality decreses.
+
+#Reflection
+The white wine data set contains information on almost 4898 white wines with 11 variables. I started by understanding the individual variables in the data set, and then I explored interesting questions and leads as I continued to make observations on plots. Eventually, I explored the quality of diamonds across many variables and created a linear model to predict diamond prices.
+
+This tidy data set contains 4,898 white wines with 11 variables on quantifying the chemical properties of each wine. At least 3 wine experts rated the quality of each wine, providing a rating between 0 (very bad) and 10 (very excellent).
+The main features in the data set are alcohole and quality I’d like to determine which ingredient are best for predicting the quality of a wine I suspect alcohol and some combination of the other variables can be used to build a predictive model to quality of wine
+
+
+(worst) —————-> (best)
+Quality:3,4,5,6,7,8,9 Its a continuous number
+
+
+There was a clear trend between the volume or carat weight of a diamond and its price. I was surprised that depth or table did not have a strong positive correlation with price, but these variables are likely to be represented by categorical variables: color, cut, and clarity. I struggled understanding the decrease in median price as the level of cut and clarity improved, but this became more clear when I realized that most of the data contained ideal cut diamonds. For the linear model, all diamonds were included since information on price, carat, color, clarity, and cut were available for all the diamonds. After transforming price to log scale and taking the cube root of carat, the model was able to account for 98.4% of the variance in the dataset.
+
+Some limitations of this model include the source of the data.Given the data set 
+has only 4898 wines data availabel.Which is not very large.These prediction might get wrong.Since it is not population data.To Investigate the data further I would like to gather much more data.I will train the data .I would like to analyze the data which factor describes more quality of wine.I would like to see which combination of ingriedents customers like more.
+
+ 
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
