@@ -1,0 +1,26 @@
+1.Which country has spend more on ROCK music?
+Sol-select i.billingcountry,sum(i.total) total_amt_rock from Invoice i join InvoiceLine
+
+v on i.invoiceId=v.invoiceId join track t
+
+on t.trackId=v.trackId join Genre g on g.genreId=t.genreId
+
+group by 1 having(g.name='Rock')  order by 2 desc;   
+
+2.Return all the track names that have a song length longer than the average song length.?
+
+Sol-with t1 as(select avg(milliseconds) avg_time from track)
+
+select t.name,t.milliseconds  from track t where t.milliseconds >(select avg_time from t1) order by 2 desc;
+
+3.Which artist has earned the most according to the InvoiceLines?
+
+Sol-select a.name,sum(I.unitPrice*I.quantity) from Artist a join Album al on a.artistId=al.artistId join track t on t.albumId=al.albumId join InvoiceLine I on I.trackid=t.trackId group by 1 order by 2 desc;
+
+4.who have written the most rock music?
+
+Sol-select a.ArtistId,a.name,count(*) rock_count from Artist a join Album al on
+a.artistId=al.artistId join track t on al.albumID=t.albumId join Genre g on t.genreID=g.genreId group by 1,2  having(g.name)='Rock' order by 3 desc;
+
+
+ 
