@@ -1,7 +1,7 @@
 Outline of Weather trends
 
 I have calculated moving average for 7 days on both chart city data and global data,I
-have copied the data from global data file and city data to one file and then calculated
+have taken the data from global data file and city data to one file and then calculated
 the moving average of each global avg temperature and city avg temperature by using
 the formulae ( = AVERAGE(D2:D8) )..
 ● I want to see the how the city temperature is changing and how it is affecting the global
