@@ -2,7 +2,7 @@
 # Supervised Learning
 ## Project: Finding Donors for CharityML
 
-### Install
+### Install:
 
 This project requires **Python 2.7** and the following Python libraries installed:
 
