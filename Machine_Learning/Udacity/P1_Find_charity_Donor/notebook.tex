@@ -1,0 +1,1691 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{finding\_donors}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Machine Learning Engineer
+Nanodegree}\label{machine-learning-engineer-nanodegree}
+
+\subsection{Supervised Learning}\label{supervised-learning}
+
+\subsection{\texorpdfstring{Project: Finding Donors for
+\emph{CharityML}}{Project: Finding Donors for CharityML}}\label{project-finding-donors-for-charityml}
+
+    Welcome to the second project of the Machine Learning Engineer
+Nanodegree! In this notebook, some template code has already been
+provided for you, and it will be your job to implement the additional
+functionality necessary to successfully complete this project. Sections
+that begin with \textbf{'Implementation'} in the header indicate that
+the following block of code will require additional functionality which
+you must provide. Instructions will be provided for each section and the
+specifics of the implementation are marked in the code block with a
+\texttt{\textquotesingle{}TODO\textquotesingle{}} statement. Please be
+sure to read the instructions carefully!
+
+In addition to implementing code, there will be questions that you must
+answer which relate to the project and your implementation. Each section
+where you will answer a question is preceded by a \textbf{'Question X'}
+header. Carefully read each question and provide thorough answers in the
+following text boxes that begin with \textbf{'Answer:'}. Your project
+submission will be evaluated based on your answers to each of the
+questions and the implementation you provide.
+
+\begin{quote}
+\textbf{Note:} Please specify WHICH VERSION OF PYTHON you are using when
+submitting this notebook. Code and Markdown cells can be executed using
+the \textbf{Shift + Enter} keyboard shortcut. In addition, Markdown
+cells can be edited by typically double-clicking the cell to enter edit
+mode.
+\end{quote}
+
+    \subsection{Getting Started}\label{getting-started}
+
+In this project, you will employ several supervised algorithms of your
+choice to accurately model individuals' income using data collected from
+the 1994 U.S. Census. You will then choose the best candidate algorithm
+from preliminary results and further optimize this algorithm to best
+model the data. Your goal with this implementation is to construct a
+model that accurately predicts whether an individual makes more than
+\$50,000. This sort of task can arise in a non-profit setting, where
+organizations survive on donations. Understanding an individual's income
+can help a non-profit better understand how large of a donation to
+request, or whether or not they should reach out to begin with. While it
+can be difficult to determine an individual's general income bracket
+directly from public sources, we can (as we will see) infer this value
+from other publically available features.
+
+The dataset for this project originates from the
+\href{https://archive.ics.uci.edu/ml/datasets/Census+Income}{UCI Machine
+Learning Repository}. The datset was donated by Ron Kohavi and Barry
+Becker, after being published in the article \emph{"Scaling Up the
+Accuracy of Naive-Bayes Classifiers: A Decision-Tree Hybrid"}. You can
+find the article by Ron Kohavi
+\href{https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf}{online}. The
+data we investigate here consists of small changes to the original
+dataset, such as removing the
+\texttt{\textquotesingle{}fnlwgt\textquotesingle{}} feature and records
+with missing or ill-formatted entries.
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Exploring the Data}\label{exploring-the-data}
+
+Run the code cell below to load necessary Python libraries and load the
+census data. Note that the last column from this dataset,
+\texttt{\textquotesingle{}income\textquotesingle{}}, will be our target
+label (whether an individual makes more than, or at most, \$50,000
+annually). All other columns are features about each individual in the
+census database.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Import libraries necessary for this project}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k+kn}{import} \PY{n}{time}
+        \PY{k+kn}{from} \PY{n+nn}{IPython.display} \PY{k+kn}{import} \PY{n}{display} \PY{c+c1}{\PYZsh{} Allows the use of display() for DataFrames}
+        
+        \PY{c+c1}{\PYZsh{} Import supplementary visualization code visuals.py}
+        \PY{k+kn}{import} \PY{n+nn}{visuals} \PY{k+kn}{as} \PY{n+nn}{vs}
+        
+        \PY{c+c1}{\PYZsh{} Pretty display for notebooks}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Load the Census dataset}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{census.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Success \PYZhy{} Display the first record}
+        \PY{n}{display}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   age   workclass education_level  education-num  marital-status  \
+0   39   State-gov       Bachelors           13.0   Never-married   
+
+      occupation    relationship    race    sex  capital-gain  capital-loss  \
+0   Adm-clerical   Not-in-family   White   Male        2174.0           0.0   
+
+   hours-per-week  native-country income  
+0            40.0   United-States  <=50K  
+    \end{verbatim}
+
+    
+    \subsubsection{Implementation: Data
+Exploration}\label{implementation-data-exploration}
+
+A cursory investigation of the dataset will determine how many
+individuals fit into either group, and will tell us about the percentage
+of these individuals making more than \$50,000. In the code cell below,
+you will need to compute the following: - The total number of records,
+\texttt{\textquotesingle{}n\_records\textquotesingle{}} - The number of
+individuals making more than \$50,000 annually,
+\texttt{\textquotesingle{}n\_greater\_50k\textquotesingle{}}. - The
+number of individuals making at most \$50,000 annually,
+\texttt{\textquotesingle{}n\_at\_most\_50k\textquotesingle{}}. - The
+percentage of individuals making more than \$50,000 annually,
+\texttt{\textquotesingle{}greater\_percent\textquotesingle{}}.
+
+** HINT: ** You may need to look at the table above to understand how
+the \texttt{\textquotesingle{}income\textquotesingle{}} entries are
+formatted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{n\PYZus{}values} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{income}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Number of records where individual\PYZsq{}s income is more than \PYZdl{}50,000}
+        \PY{n}{n\PYZus{}greater\PYZus{}50k} \PY{o}{=} \PY{n}{n\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Number of records where individual\PYZsq{}s income is at most \PYZdl{}50,000}
+        \PY{n}{n\PYZus{}at\PYZus{}most\PYZus{}50k} \PY{o}{=} \PY{n}{n\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{n\PYZus{}values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <=50K    34014
+        >50K     11208
+        Name: income, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{n\PYZus{}greater\PYZus{}50k}\PY{p}{,}\PY{n}{n\PYZus{}at\PYZus{}most\PYZus{}50k}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (11208, 34014)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} TODO: Total number of records}
+        \PY{n}{n\PYZus{}records} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{income}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+        \PY{n}{n\PYZus{}values} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{income}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Number of records where individual\PYZsq{}s income is more than \PYZdl{}50,000}
+        \PY{n}{n\PYZus{}greater\PYZus{}50k} \PY{o}{=} \PY{n}{n\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Number of records where individual\PYZsq{}s income is at most \PYZdl{}50,000}
+        \PY{n}{n\PYZus{}at\PYZus{}most\PYZus{}50k} \PY{o}{=} \PY{n}{n\PYZus{}values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Percentage of individuals whose income is more than \PYZdl{}50,000}
+        \PY{n}{greater\PYZus{}percent}\PY{o}{=}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{n\PYZus{}greater\PYZus{}50k}\PY{p}{)}\PY{o}{/}\PY{n}{n\PYZus{}records}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+        
+        \PY{c+c1}{\PYZsh{} Print the results}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total number of records: \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}records}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Individuals making more than \PYZdl{}50,000: \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}greater\PYZus{}50k}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Individuals making at most \PYZdl{}50,000: \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{n\PYZus{}at\PYZus{}most\PYZus{}50k}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentage of individuals making more than \PYZdl{}50,000: \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{greater\PYZus{}percent}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Total number of records: 45222
+Individuals making more than \$50,000: 11208
+Individuals making at most \$50,000: 34014
+Percentage of individuals making more than \$50,000: 24.7843969749\%
+
+    \end{Verbatim}
+
+    ** Featureset Exploration **
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{age}: continuous.
+\item
+  \textbf{workclass}: Private, Self-emp-not-inc, Self-emp-inc,
+  Federal-gov, Local-gov, State-gov, Without-pay, Never-worked.
+\item
+  \textbf{education}: Bachelors, Some-college, 11th, HS-grad,
+  Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters,
+  1st-4th, 10th, Doctorate, 5th-6th, Preschool.
+\item
+  \textbf{education-num}: continuous.
+\item
+  \textbf{marital-status}: Married-civ-spouse, Divorced, Never-married,
+  Separated, Widowed, Married-spouse-absent, Married-AF-spouse.
+\item
+  \textbf{occupation}: Tech-support, Craft-repair, Other-service, Sales,
+  Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct,
+  Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv,
+  Protective-serv, Armed-Forces.
+\item
+  \textbf{relationship}: Wife, Own-child, Husband, Not-in-family,
+  Other-relative, Unmarried.
+\item
+  \textbf{race}: Black, White, Asian-Pac-Islander, Amer-Indian-Eskimo,
+  Other.
+\item
+  \textbf{sex}: Female, Male.
+\item
+  \textbf{capital-gain}: continuous.
+\item
+  \textbf{capital-loss}: continuous.
+\item
+  \textbf{hours-per-week}: continuous.
+\item
+  \textbf{native-country}: United-States, Cambodia, England,
+  Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India,
+  Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy,
+  Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France,
+  Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary,
+  Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador,
+  Trinadad\&Tobago, Peru, Hong, Holand-Netherlands.
+\end{itemize}
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Preparing the Data}\label{preparing-the-data}
+
+Before data can be used as input for machine learning algorithms, it
+often must be cleaned, formatted, and restructured --- this is typically
+known as \textbf{preprocessing}. Fortunately, for this dataset, there
+are no invalid or missing entries we must deal with, however, there are
+some qualities about certain features that must be adjusted. This
+preprocessing can help tremendously with the outcome and predictive
+power of nearly all learning algorithms.
+
+    \subsubsection{Transforming Skewed Continuous
+Features}\label{transforming-skewed-continuous-features}
+
+A dataset may sometimes contain at least one feature whose values tend
+to lie near a single number, but will also have a non-trivial number of
+vastly larger or smaller values than that single number. Algorithms can
+be sensitive to such distributions of values and can underperform if the
+range is not properly normalized. With the census dataset two features
+fit this description: '\texttt{capital-gain\textquotesingle{}} and
+\texttt{\textquotesingle{}capital-loss\textquotesingle{}}.
+
+Run the code cell below to plot a histogram of these two features. Note
+the range of the values present and how they are distributed.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Split the data into features and target label}
+        \PY{n}{income\PYZus{}raw} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{features\PYZus{}raw} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Visualize skewed continuous features of original data}
+        \PY{n}{vs}\PY{o}{.}\PY{n}{distribution}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For highly-skewed feature distributions such as
+\texttt{\textquotesingle{}capital-gain\textquotesingle{}} and
+\texttt{\textquotesingle{}capital-loss\textquotesingle{}}, it is common
+practice to apply a logarithmic transformation on the data so that the
+very large and very small values do not negatively affect the
+performance of a learning algorithm. Using a logarithmic transformation
+significantly reduces the range of values caused by outliers. Care must
+be taken when applying this transformation however: The logarithm of
+\texttt{0} is undefined, so we must translate the values by a small
+amount above \texttt{0} to apply the the logarithm successfully.
+
+Run the code cell below to perform a transformation on the data and
+visualize the results. Again, note the range of values and how they are
+distributed.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Log\PYZhy{}transform the skewed features}
+        \PY{n}{skewed} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capital\PYZhy{}gain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capital\PYZhy{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{features\PYZus{}log\PYZus{}transformed} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{features\PYZus{}raw}\PY{p}{)}
+        \PY{n}{features\PYZus{}log\PYZus{}transformed}\PY{p}{[}\PY{n}{skewed}\PY{p}{]} \PY{o}{=} \PY{n}{features\PYZus{}raw}\PY{p}{[}\PY{n}{skewed}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Visualize the new log distributions}
+        \PY{n}{vs}\PY{o}{.}\PY{n}{distribution}\PY{p}{(}\PY{n}{features\PYZus{}log\PYZus{}transformed}\PY{p}{,} \PY{n}{transformed} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Normalizing Numerical
+Features}\label{normalizing-numerical-features}
+
+In addition to performing transformations on features that are highly
+skewed, it is often good practice to perform some type of scaling on
+numerical features. Applying a scaling to the data does not change the
+shape of each feature's distribution (such as
+\texttt{\textquotesingle{}capital-gain\textquotesingle{}} or
+\texttt{\textquotesingle{}capital-loss\textquotesingle{}} above);
+however, normalization ensures that each feature is treated equally when
+applying supervised learners. Note that once scaling is applied,
+observing the data in its raw form will no longer have the same original
+meaning, as exampled below.
+
+Run the code cell below to normalize each numerical feature. We will use
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html}{\texttt{sklearn.preprocessing.MinMaxScaler}}
+for this.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Import sklearn.preprocessing.StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.preprocessing} \PY{k+kn}{import} \PY{n}{MinMaxScaler}
+        
+        \PY{c+c1}{\PYZsh{} Initialize a scaler, then apply it to the features}
+        \PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} default=(0, 1)}
+        \PY{n}{numerical} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZhy{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capital\PYZhy{}gain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{capital\PYZhy{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hours\PYZhy{}per\PYZhy{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{features\PYZus{}log\PYZus{}minmax\PYZus{}transform} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{features\PYZus{}log\PYZus{}transformed}\PY{p}{)}
+        \PY{n}{features\PYZus{}log\PYZus{}minmax\PYZus{}transform}\PY{p}{[}\PY{n}{numerical}\PY{p}{]} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{features\PYZus{}log\PYZus{}transformed}\PY{p}{[}\PY{n}{numerical}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Show an example of a record with scaling applied}
+        \PY{n}{display}\PY{p}{(}\PY{n}{features\PYZus{}log\PYZus{}minmax\PYZus{}transform}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+        age          workclass education_level  education-num  \
+0  0.301370          State-gov       Bachelors       0.800000   
+1  0.452055   Self-emp-not-inc       Bachelors       0.800000   
+2  0.287671            Private         HS-grad       0.533333   
+3  0.493151            Private            11th       0.400000   
+4  0.150685            Private       Bachelors       0.800000   
+
+        marital-status          occupation    relationship    race      sex  \
+0        Never-married        Adm-clerical   Not-in-family   White     Male   
+1   Married-civ-spouse     Exec-managerial         Husband   White     Male   
+2             Divorced   Handlers-cleaners   Not-in-family   White     Male   
+3   Married-civ-spouse   Handlers-cleaners         Husband   Black     Male   
+4   Married-civ-spouse      Prof-specialty            Wife   Black   Female   
+
+   capital-gain  capital-loss  hours-per-week  native-country  
+0      0.667492           0.0        0.397959   United-States  
+1      0.000000           0.0        0.122449   United-States  
+2      0.000000           0.0        0.397959   United-States  
+3      0.000000           0.0        0.397959   United-States  
+4      0.000000           0.0        0.397959            Cuba  
+    \end{verbatim}
+
+    
+    \subsubsection{Implementation: Data
+Preprocessing}\label{implementation-data-preprocessing}
+
+From the table in \textbf{Exploring the Data} above, we can see there
+are several features for each record that are non-numeric. Typically,
+learning algorithms expect input to be numeric, which requires that
+non-numeric features (called \emph{categorical variables}) be converted.
+One popular way to convert categorical variables is by using the
+\textbf{one-hot encoding} scheme. One-hot encoding creates a
+\emph{"dummy"} variable for each possible category of each non-numeric
+feature. For example, assume \texttt{someFeature} has three possible
+entries: \texttt{A}, \texttt{B}, or \texttt{C}. We then encode this
+feature into \texttt{someFeature\_A}, \texttt{someFeature\_B} and
+\texttt{someFeature\_C}.
+
+~~\textbar{} someFeature \textbar{} \textbar{} someFeature\_A \textbar{}
+someFeature\_B \textbar{} someFeature\_C \textbar{}\\
+:-: \textbar{} :-: \textbar{} \textbar{} :-: \textbar{} :-: \textbar{}
+:-: \textbar{}\\
+0 \textbar{} B \textbar{} \textbar{} 0 \textbar{} 1 \textbar{} 0
+\textbar{}\\
+1 \textbar{} C \textbar{} -\/-\/-\/-\textgreater{} one-hot encode
+-\/-\/-\/-\textgreater{} \textbar{} 0 \textbar{} 0 \textbar{} 1
+\textbar{}\\
+2 \textbar{} A \textbar{} \textbar{} 1 \textbar{} 0 \textbar{} 0
+\textbar{}
+
+Additionally, as with the non-numeric features, we need to convert the
+non-numeric target label,
+\texttt{\textquotesingle{}income\textquotesingle{}} to numerical values
+for the learning algorithm to work. Since there are only two possible
+categories for this label ("\textless{}=50K" and "\textgreater{}50K"),
+we can avoid using one-hot encoding and simply encode these two
+categories as \texttt{0} and \texttt{1}, respectively. In code cell
+below, you will need to implement the following: - Use
+\href{http://pandas.pydata.org/pandas-docs/stable/generated/pandas.get_dummies.html?highlight=get_dummies\#pandas.get_dummies}{\texttt{pandas.get\_dummies()}}
+to perform one-hot encoding on the
+\texttt{\textquotesingle{}features\_log\_minmax\_transform\textquotesingle{}}
+data. - Convert the target label
+\texttt{\textquotesingle{}income\_raw\textquotesingle{}} to numerical
+entries. - Set records with "\textless{}=50K" to \texttt{0} and records
+with "\textgreater{}50K" to \texttt{1}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{features\PYZus{}log\PYZus{}minmax\PYZus{}transform}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}         age          workclass education\_level  education-num  \textbackslash{}
+        0  0.301370          State-gov       Bachelors       0.800000   
+        1  0.452055   Self-emp-not-inc       Bachelors       0.800000   
+        2  0.287671            Private         HS-grad       0.533333   
+        3  0.493151            Private            11th       0.400000   
+        4  0.150685            Private       Bachelors       0.800000   
+        
+                marital-status          occupation    relationship    race      sex  \textbackslash{}
+        0        Never-married        Adm-clerical   Not-in-family   White     Male   
+        1   Married-civ-spouse     Exec-managerial         Husband   White     Male   
+        2             Divorced   Handlers-cleaners   Not-in-family   White     Male   
+        3   Married-civ-spouse   Handlers-cleaners         Husband   Black     Male   
+        4   Married-civ-spouse      Prof-specialty            Wife   Black   Female   
+        
+           capital-gain  capital-loss  hours-per-week  native-country  
+        0      0.667492           0.0        0.397959   United-States  
+        1      0.000000           0.0        0.122449   United-States  
+        2      0.000000           0.0        0.397959   United-States  
+        3      0.000000           0.0        0.397959   United-States  
+        4      0.000000           0.0        0.397959            Cuba  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{import} \PY{n+nn}{pandas}
+        \PY{c+c1}{\PYZsh{} TODO: One\PYZhy{}hot encode the \PYZsq{}features\PYZus{}log\PYZus{}minmax\PYZus{}transform\PYZsq{} data using pandas.get\PYZus{}dummies()}
+        \PY{n}{features\PYZus{}final} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{features\PYZus{}log\PYZus{}minmax\PYZus{}transform}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{workclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{education\PYZus{}level}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{marital\PYZhy{}status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                                                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{occupation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relationship}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{native\PYZhy{}country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Encode the \PYZsq{}income\PYZus{}raw\PYZsq{} data to numerical values}
+        \PY{n}{income} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{income\PYZus{}raw}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Print the number of features after one\PYZhy{}hot encoding}
+        \PY{n}{encoded} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{features\PYZus{}final}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{} total features after one\PYZhy{}hot encoding.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{encoded}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Uncomment the following line to see the encoded feature names}
+        \PY{k}{print} \PY{n}{encoded}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+103 total features after one-hot encoding.
+['age', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week', 'workclass\_ Federal-gov', 'workclass\_ Local-gov', 'workclass\_ Private', 'workclass\_ Self-emp-inc', 'workclass\_ Self-emp-not-inc', 'workclass\_ State-gov', 'workclass\_ Without-pay', 'education\_level\_ 10th', 'education\_level\_ 11th', 'education\_level\_ 12th', 'education\_level\_ 1st-4th', 'education\_level\_ 5th-6th', 'education\_level\_ 7th-8th', 'education\_level\_ 9th', 'education\_level\_ Assoc-acdm', 'education\_level\_ Assoc-voc', 'education\_level\_ Bachelors', 'education\_level\_ Doctorate', 'education\_level\_ HS-grad', 'education\_level\_ Masters', 'education\_level\_ Preschool', 'education\_level\_ Prof-school', 'education\_level\_ Some-college', 'marital-status\_ Divorced', 'marital-status\_ Married-AF-spouse', 'marital-status\_ Married-civ-spouse', 'marital-status\_ Married-spouse-absent', 'marital-status\_ Never-married', 'marital-status\_ Separated', 'marital-status\_ Widowed', 'occupation\_ Adm-clerical', 'occupation\_ Armed-Forces', 'occupation\_ Craft-repair', 'occupation\_ Exec-managerial', 'occupation\_ Farming-fishing', 'occupation\_ Handlers-cleaners', 'occupation\_ Machine-op-inspct', 'occupation\_ Other-service', 'occupation\_ Priv-house-serv', 'occupation\_ Prof-specialty', 'occupation\_ Protective-serv', 'occupation\_ Sales', 'occupation\_ Tech-support', 'occupation\_ Transport-moving', 'relationship\_ Husband', 'relationship\_ Not-in-family', 'relationship\_ Other-relative', 'relationship\_ Own-child', 'relationship\_ Unmarried', 'relationship\_ Wife', 'race\_ Amer-Indian-Eskimo', 'race\_ Asian-Pac-Islander', 'race\_ Black', 'race\_ Other', 'race\_ White', 'sex\_ Female', 'sex\_ Male', 'native-country\_ Cambodia', 'native-country\_ Canada', 'native-country\_ China', 'native-country\_ Columbia', 'native-country\_ Cuba', 'native-country\_ Dominican-Republic', 'native-country\_ Ecuador', 'native-country\_ El-Salvador', 'native-country\_ England', 'native-country\_ France', 'native-country\_ Germany', 'native-country\_ Greece', 'native-country\_ Guatemala', 'native-country\_ Haiti', 'native-country\_ Holand-Netherlands', 'native-country\_ Honduras', 'native-country\_ Hong', 'native-country\_ Hungary', 'native-country\_ India', 'native-country\_ Iran', 'native-country\_ Ireland', 'native-country\_ Italy', 'native-country\_ Jamaica', 'native-country\_ Japan', 'native-country\_ Laos', 'native-country\_ Mexico', 'native-country\_ Nicaragua', 'native-country\_ Outlying-US(Guam-USVI-etc)', 'native-country\_ Peru', 'native-country\_ Philippines', 'native-country\_ Poland', 'native-country\_ Portugal', 'native-country\_ Puerto-Rico', 'native-country\_ Scotland', 'native-country\_ South', 'native-country\_ Taiwan', 'native-country\_ Thailand', 'native-country\_ Trinadad\&Tobago', 'native-country\_ United-States', 'native-country\_ Vietnam', 'native-country\_ Yugoslavia']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{features\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}         age  education-num  capital-gain  capital-loss  hours-per-week  \textbackslash{}
+         0  0.301370       0.800000      0.667492           0.0        0.397959   
+         1  0.452055       0.800000      0.000000           0.0        0.122449   
+         2  0.287671       0.533333      0.000000           0.0        0.397959   
+         3  0.493151       0.400000      0.000000           0.0        0.397959   
+         4  0.150685       0.800000      0.000000           0.0        0.397959   
+         
+            workclass\_ Federal-gov  workclass\_ Local-gov  workclass\_ Private  \textbackslash{}
+         0                       0                     0                   0   
+         1                       0                     0                   0   
+         2                       0                     0                   1   
+         3                       0                     0                   1   
+         4                       0                     0                   1   
+         
+            workclass\_ Self-emp-inc  workclass\_ Self-emp-not-inc  \textbackslash{}
+         0                        0                            0   
+         1                        0                            1   
+         2                        0                            0   
+         3                        0                            0   
+         4                        0                            0   
+         
+                       {\ldots}              native-country\_ Portugal  \textbackslash{}
+         0             {\ldots}                                     0   
+         1             {\ldots}                                     0   
+         2             {\ldots}                                     0   
+         3             {\ldots}                                     0   
+         4             {\ldots}                                     0   
+         
+            native-country\_ Puerto-Rico  native-country\_ Scotland  \textbackslash{}
+         0                            0                         0   
+         1                            0                         0   
+         2                            0                         0   
+         3                            0                         0   
+         4                            0                         0   
+         
+            native-country\_ South  native-country\_ Taiwan  native-country\_ Thailand  \textbackslash{}
+         0                      0                       0                         0   
+         1                      0                       0                         0   
+         2                      0                       0                         0   
+         3                      0                       0                         0   
+         4                      0                       0                         0   
+         
+            native-country\_ Trinadad\&Tobago  native-country\_ United-States  \textbackslash{}
+         0                                0                              1   
+         1                                0                              1   
+         2                                0                              1   
+         3                                0                              1   
+         4                                0                              0   
+         
+            native-country\_ Vietnam  native-country\_ Yugoslavia  
+         0                        0                           0  
+         1                        0                           0  
+         2                        0                           0  
+         3                        0                           0  
+         4                        0                           0  
+         
+         [5 rows x 103 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{income}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    <=50K  >50K
+         0      1     0
+         1      1     0
+         2      1     0
+         3      1     0
+         4      1     0
+\end{Verbatim}
+            
+    \subsubsection{Shuffle and Split Data}\label{shuffle-and-split-data}
+
+Now all \emph{categorical variables} have been converted into numerical
+features, and all numerical features have been normalized. As always, we
+will now split the data (both features and their labels) into training
+and test sets. 80\% of the data will be used for training and 20\% for
+testing.
+
+Run the code cell below to perform this split.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Import train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.cross\PYZus{}validation} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{c+c1}{\PYZsh{} Split the \PYZsq{}features\PYZsq{} and \PYZsq{}income\PYZsq{} data into training and testing sets}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{features\PYZus{}final}\PY{p}{,} 
+                                                             \PY{n}{income}\PY{p}{,} 
+                                                             \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} 
+                                                             \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Show the results of the split}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Training set has \PYZob{}\PYZcb{} samples.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Testing set has \PYZob{}\PYZcb{} samples.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training set has 36177 samples.
+Testing set has 9045 samples.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/rahul/anaconda2/lib/python2.7/site-packages/sklearn/cross\_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model\_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}             age  education-num  capital-gain  capital-loss  hours-per-week  \textbackslash{}
+         13181  0.410959       0.600000           0.0           0.0        0.500000   
+         10342  0.438356       0.533333           0.0           0.0        0.397959   
+         
+                workclass\_ Federal-gov  workclass\_ Local-gov  workclass\_ Private  \textbackslash{}
+         13181                       0                     0                   1   
+         10342                       0                     0                   1   
+         
+                workclass\_ Self-emp-inc  workclass\_ Self-emp-not-inc  \textbackslash{}
+         13181                        0                            0   
+         10342                        0                            0   
+         
+                           {\ldots}              native-country\_ Portugal  \textbackslash{}
+         13181             {\ldots}                                     0   
+         10342             {\ldots}                                     0   
+         
+                native-country\_ Puerto-Rico  native-country\_ Scotland  \textbackslash{}
+         13181                            0                         0   
+         10342                            0                         0   
+         
+                native-country\_ South  native-country\_ Taiwan  \textbackslash{}
+         13181                      0                       0   
+         10342                      0                       0   
+         
+                native-country\_ Thailand  native-country\_ Trinadad\&Tobago  \textbackslash{}
+         13181                         0                                0   
+         10342                         0                                0   
+         
+                native-country\_ United-States  native-country\_ Vietnam  \textbackslash{}
+         13181                              1                        0   
+         10342                              1                        0   
+         
+                native-country\_ Yugoslavia  
+         13181                           0  
+         10342                           0  
+         
+         [2 rows x 103 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}             age  education-num  capital-gain  capital-loss  hours-per-week  \textbackslash{}
+         41387  0.082192       0.733333           0.0           0.0         0.44898   
+         35278  0.219178       0.533333           0.0           0.0         0.55102   
+         
+                workclass\_ Federal-gov  workclass\_ Local-gov  workclass\_ Private  \textbackslash{}
+         41387                       0                     0                   1   
+         35278                       0                     0                   1   
+         
+                workclass\_ Self-emp-inc  workclass\_ Self-emp-not-inc  \textbackslash{}
+         41387                        0                            0   
+         35278                        0                            0   
+         
+                           {\ldots}              native-country\_ Portugal  \textbackslash{}
+         41387             {\ldots}                                     0   
+         35278             {\ldots}                                     0   
+         
+                native-country\_ Puerto-Rico  native-country\_ Scotland  \textbackslash{}
+         41387                            0                         0   
+         35278                            0                         0   
+         
+                native-country\_ South  native-country\_ Taiwan  \textbackslash{}
+         41387                      0                       0   
+         35278                      0                       0   
+         
+                native-country\_ Thailand  native-country\_ Trinadad\&Tobago  \textbackslash{}
+         41387                         0                                0   
+         35278                         0                                0   
+         
+                native-country\_ United-States  native-country\_ Vietnam  \textbackslash{}
+         41387                              0                        0   
+         35278                              1                        0   
+         
+                native-country\_ Yugoslavia  
+         41387                           0  
+         35278                           0  
+         
+         [2 rows x 103 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}        <=50K  >50K
+         13181      1     0
+         10342      1     0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}        <=50K  >50K
+         41387      1     0
+         35278      1     0
+         26950      1     0
+         29133      1     0
+         41794      1     0
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Evaluating Model
+Performance}\label{evaluating-model-performance}
+
+In this section, we will investigate four different algorithms, and
+determine which is best at modeling the data. Three of these algorithms
+will be supervised learners of your choice, and the fourth algorithm is
+known as a \emph{naive predictor}.
+
+    \subsubsection{Metrics and the Naive
+Predictor}\label{metrics-and-the-naive-predictor}
+
+\emph{CharityML}, equipped with their research, knows individuals that
+make more than \$50,000 are most likely to donate to their charity.
+Because of this, \emph{CharityML} is particularly interested in
+predicting who makes more than \$50,000 accurately. It would seem that
+using \textbf{accuracy} as a metric for evaluating a particular model's
+performace would be appropriate. Additionally, identifying someone that
+\emph{does not} make more than \$50,000 as someone who does would be
+detrimental to \emph{CharityML}, since they are looking to find
+individuals willing to donate. Therefore, a model's ability to precisely
+predict those that make more than \$50,000 is \emph{more important} than
+the model's ability to \textbf{recall} those individuals. We can use
+\textbf{F-beta score} as a metric that considers both precision and
+recall:
+
+\[ F_{\beta} = (1 + \beta^2) \cdot \frac{precision \cdot recall}{\left( \beta^2 \cdot precision \right) + recall} \]
+
+In particular, when \(\beta = 0.5\), more emphasis is placed on
+precision. This is called the \textbf{F\(_{0.5}\) score} (or F-score for
+simplicity).
+
+Looking at the distribution of classes (those who make at most \$50,000,
+and those who make more), it's clear most individuals do not make more
+than \$50,000. This can greatly affect \textbf{accuracy}, since we could
+simply say \emph{"this person does not make more than \$50,000"} and
+generally be right, without ever looking at the data! Making such a
+statement would be called \textbf{naive}, since we have not considered
+any information to substantiate the claim. It is always important to
+consider the \emph{naive prediction} for your data, to help establish a
+benchmark for whether a model is performing well. That been said, using
+that prediction would be pointless: If we predicted all people made less
+than \$50,000, \emph{CharityML} would identify no one as donors.
+
+\paragraph{Note: Recap of accuracy, precision,
+recall}\label{note-recap-of-accuracy-precision-recall}
+
+** Accuracy ** measures how often the classifier makes the correct
+prediction. It's the ratio of the number of correct predictions to the
+total number of predictions (the number of test data points).
+
+** Precision ** tells us what proportion of messages we classified as
+spam, actually were spam. It is a ratio of true positives(words
+classified as spam, and which are actually spam) to all positives(all
+words classified as spam, irrespective of whether that was the correct
+classificatio), in other words it is the ratio of
+
+\texttt{{[}True\ Positives/(True\ Positives\ +\ False\ Positives){]}}
+
+** Recall(sensitivity)** tells us what proportion of messages that
+actually were spam were classified by us as spam. It is a ratio of true
+positives(words classified as spam, and which are actually spam) to all
+the words that were actually spam, in other words it is the ratio of
+
+\texttt{{[}True\ Positives/(True\ Positives\ +\ False\ Negatives){]}}
+
+For classification problems that are skewed in their classification
+distributions like in our case, for example if we had a 100 text
+messages and only 2 were spam and the rest 98 weren't, accuracy by
+itself is not a very good metric. We could classify 90 messages as not
+spam(including the 2 that were spam but we classify them as not spam,
+hence they would be false negatives) and 10 as spam(all 10 false
+positives) and still get a reasonably good accuracy score. For such
+cases, precision and recall come in very handy. These two metrics can be
+combined to get the F1 score, which is weighted average(harmonic mean)
+of the precision and recall scores. This score can range from 0 to 1,
+with 1 being the best possible F1 score(we take the harmonic mean as we
+are dealing with ratios).
+
+    \subsubsection{Question 1 - Naive Predictor
+Performace}\label{question-1---naive-predictor-performace}
+
+\begin{itemize}
+\tightlist
+\item
+  If we chose a model that always predicted an individual made more than
+  \$50,000, what would that model's accuracy and F-score be on this
+  dataset? You must use the code cell below and assign your results to
+  \texttt{\textquotesingle{}accuracy\textquotesingle{}} and
+  \texttt{\textquotesingle{}fscore\textquotesingle{}} to be used later.
+\end{itemize}
+
+** Please note ** that the the purpose of generating a naive predictor
+is simply to show what a base model without any intelligence would look
+like. In the real world, ideally your base model would be either the
+results of a previous model or could be based on a research paper upon
+which you are looking to improve. When there is no benchmark model set,
+getting a result better than random choice is a place you could start
+from.
+
+** HINT: **
+
+\begin{itemize}
+\tightlist
+\item
+  When we have a model that always predicts '1' (i.e. the individual
+  makes more than 50k) then our model will have no True Negatives(TN) or
+  False Negatives(FN) as we are not making any negative('0' value)
+  predictions. Therefore our Accuracy in this case becomes the same as
+  our Precision(True Positives/(True Positives + False Positives)) as
+  every prediction that we have made with value '1' that should have '0'
+  becomes a False Positive; therefore our denominator in this case is
+  the total number of records we have in total.
+\item
+  Our Recall score(True Positives/(True Positives + False Negatives)) in
+  this setting becomes 1 as we have no False Negatives.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{Total\PYZus{}sum} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{income}\PY{p}{)} \PY{c+c1}{\PYZsh{} Counting the ones as this is the naive case. Note that \PYZsq{}income\PYZsq{} is the \PYZsq{}income\PYZus{}raw\PYZsq{} data }
+         \PY{c+c1}{\PYZsh{}encoded to numerical values done in the data preprocessing step.}
+         \PY{n}{Total\PYZus{}sum}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <=50K    34014
+         >50K     11208
+         dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{TP = np.sum(income) \PYZsh{} Counting the ones as this is the naive case. Note that \PYZsq{}income\PYZsq{} is the \PYZsq{}income\PYZus{}raw\PYZsq{} data }
+         \PY{l+s+sd}{encoded to numerical values done in the data preprocessing step.}
+         \PY{l+s+sd}{FP = income.count() \PYZhy{} TP \PYZsh{} Specific to the naive case}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{n}{TP}\PY{o}{=}\PY{n}{Total\PYZus{}sum}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{FP}\PY{o}{=}\PY{n}{Total\PYZus{}sum}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{TN} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} No predicted negatives in the naive case}
+         \PY{n}{FN} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{} No predicted negatives in the naive case}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Calculate accuracy, precision and recall}
+         \PY{n}{accuracy} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+         \PY{n}{recall} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+         \PY{n}{precision} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Calculate F\PYZhy{}score using the formula above for beta = 0.5 and correct values for precision and recall.}
+         \PY{n}{Beta}\PY{o}{=}\PY{l+m+mf}{0.5}
+         \PY{n}{fscore} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{Beta}\PY{o}{*}\PY{n}{Beta}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{precision}\PY{o}{*}\PY{n}{recall}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{p}{(}\PY{n}{Beta}\PY{o}{*}\PY{n}{Beta}\PY{o}{*}\PY{n}{precision}\PY{p}{)}\PY{o}{+}\PY{n}{recall}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print the results }
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Naive Predictor: [Accuracy score: \PYZob{}:.4f\PYZcb{}, F\PYZhy{}score: \PYZob{}:.4f\PYZcb{}]}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy}\PY{p}{,} \PY{n}{fscore}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Naive Predictor: [Accuracy score: 0.2478, F-score: 0.2917]
+
+    \end{Verbatim}
+
+    \subsubsection{Supervised Learning
+Models}\label{supervised-learning-models}
+
+\textbf{The following are some of the supervised learning models that
+are currently available in}
+\href{http://scikit-learn.org/stable/supervised_learning.html}{\texttt{scikit-learn}}
+\textbf{that you may choose from:} - Gaussian Naive Bayes (GaussianNB) -
+Decision Trees - Ensemble Methods (Bagging, AdaBoost, Random Forest,
+Gradient Boosting) - K-Nearest Neighbors (KNeighbors) - Stochastic
+Gradient Descent Classifier (SGDC) - Support Vector Machines (SVM) -
+Logistic Regression
+
+    \subsubsection{Question 2 - Model
+Application}\label{question-2---model-application}
+
+List three of the supervised learning models above that are appropriate
+for this problem that you will test on the census data. For each model
+chosen
+
+\begin{itemize}
+\tightlist
+\item
+  Describe one real-world application in industry where the model can be
+  applied.
+\item
+  What are the strengths of the model; when does it perform well?
+\item
+  What are the weaknesses of the model; when does it perform poorly?
+\item
+  What makes this model a good candidate for the problem, given what you
+  know about the data?
+\end{itemize}
+
+** HINT: **
+
+Structure your answer in the same format as above\^{}, with 4 parts for
+each of the three models you pick. Please include references with your
+answer.
+
+    \textbf{Answer: }
+
+    \subsubsection{1)SVM}\label{svm}
+
+    Describe one real-world application in industry where the model can be
+applied.
+
+    Svm can be used to classify the diseses.Support vector machine is a
+promissing approach for classfication of person is have disease or not.
+eg-Classification of person is having Diabeties or preDiabeties in
+Population
+
+    What are the strengths of the model; when does it perform well?
+
+    Kernel trick is the strength of SVM model.With an appropriate kernel we
+can solve any complex problem.
+
+    What are the weaknesses of the model; when does it perform poorly?
+
+    Chossing the write kernel is one of biggest limitation of SVM. Its speed
+and size also matter.When heavy amount of test data is present.It will
+be slow
+
+    \subsubsection{3)Decision Trees}\label{decision-trees}
+
+    Describe one real-world application in industry where the model can be
+applied
+
+    Loan giving criteria for a candidate
+
+    What are the strengths of the model; when does it perform well?
+
+    Ability of selecting most discriminatory features. Data classfication
+without much calculation. It can perform well by selecting appropriate
+feature selection for learning algorithm
+
+    What are the weaknesses of the model; when does it perform poorly?
+
+    Exponential calculation while problem is getting bigger.It perform
+poorly when it does not have discrete data for some construction
+algorithm
+
+    \subsubsection{3)K-Nearest Neighbors
+(KNeighbors)}\label{k-nearest-neighbors-kneighbors}
+
+    Describe one real-world application in industry where the model can be
+applied.
+
+    A bank should give loan to the candidate or not
+
+    What are the strengths of the model; when does it perform well?
+
+    No assumption for data is required .useful for example for non-linear
+data. When you have low data it performs well.Since it is memory based
+approach.
+
+    What are the weaknesses of the model; when does it perform poorly?
+
+    KNN stores entire training dataset which it uses as its representaion.
+When the training data set is large.It will be slow and will effect the
+system also.
+
+    \subsubsection{Implementation - Creating a Training and Predicting
+Pipeline}\label{implementation---creating-a-training-and-predicting-pipeline}
+
+To properly evaluate the performance of each model you've chosen, it's
+important that you create a training and predicting pipeline that allows
+you to quickly and effectively train models using various sizes of
+training data and perform predictions on the testing data. Your
+implementation here will be used in the following section. In the code
+block below, you will need to implement the following: - Import
+\texttt{fbeta\_score} and \texttt{accuracy\_score} from
+\href{http://scikit-learn.org/stable/modules/classes.html\#sklearn-metrics-metrics}{\texttt{sklearn.metrics}}.
+- Fit the learner to the sampled training data and record the training
+time. - Perform predictions on the test data \texttt{X\_test}, and also
+on the first 300 training points \texttt{X\_train{[}:300{]}}. - Record
+the total prediction time. - Calculate the accuracy score for both the
+training subset and testing set. - Calculate the F-score for both the
+training subset and testing set. - Make sure that you set the
+\texttt{beta} parameter!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} TODO: Import two metrics from sklearn \PYZhy{} fbeta\PYZus{}score and accuracy\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{fbeta\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{accuracy\PYZus{}score} 
+         \PY{k}{def} \PY{n+nf}{train\PYZus{}predict}\PY{p}{(}\PY{n}{learner}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{:} 
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    inputs:}
+         \PY{l+s+sd}{       \PYZhy{} learner: the learning algorithm to be trained and predicted on}
+         \PY{l+s+sd}{       \PYZhy{} sample\PYZus{}size: the size of samples (number) to be drawn from training set}
+         \PY{l+s+sd}{       \PYZhy{} X\PYZus{}train: features training set}
+         \PY{l+s+sd}{       \PYZhy{} y\PYZus{}train: income training set}
+         \PY{l+s+sd}{       \PYZhy{} X\PYZus{}test: features testing set}
+         \PY{l+s+sd}{       \PYZhy{} y\PYZus{}test: income testing set}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             
+             \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{c+c1}{\PYZsh{} TODO: Fit the learner to the training data using slicing with \PYZsq{}sample\PYZus{}size\PYZsq{} using .fit(training\PYZus{}features[:], training\PYZus{}labels[:])}
+             \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Get start time}
+             \PY{n}{learner}\PY{o}{=}\PY{n}{learner}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{n}{sample\PYZus{}size}\PY{p}{]}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{n}{sample\PYZus{}size}\PY{p}{]}\PY{p}{)}
+             \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Get end time}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Calculate the training time}
+             \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}
+                 
+             \PY{c+c1}{\PYZsh{} TODO: Get the predictions on the test set(X\PYZus{}test),}
+             \PY{c+c1}{\PYZsh{}       then get predictions on the first 300 training samples(X\PYZus{}train) using .predict()}
+             \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Get start time}
+             \PY{n}{predictions\PYZus{}test} \PY{o}{=} \PY{n}{learner}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+             \PY{n}{predictions\PYZus{}train} \PY{o}{=} \PY{n}{learner}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+             \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Get end time}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Calculate the total prediction time}
+             \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pred\PYZus{}time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{end}\PY{o}{\PYZhy{}}\PY{n}{start}
+                     
+             \PY{c+c1}{\PYZsh{} TODO: Compute accuracy on the first 300 training samples which is y\PYZus{}train[:300]}
+             \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,}\PY{n}{predictions\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{300}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} TODO: Compute accuracy on test set using accuracy\PYZus{}score()}
+             \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions\PYZus{}test}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Compute F\PYZhy{}score on the the first 300 training samples using fbeta\PYZus{}score()}
+             \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f\PYZus{}train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fbeta\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,}\PY{n}{predictions\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{300}\PY{p}{]}\PY{p}{,}\PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} TODO: Compute F\PYZhy{}score on the test set which is y\PYZus{}test}
+             \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f\PYZus{}test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fbeta\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,}\PY{n}{predictions\PYZus{}test}\PY{p}{,}\PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+                
+             \PY{c+c1}{\PYZsh{} Success}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{} trained on \PYZob{}\PYZcb{} samples.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{learner}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}class\PYZus{}\PYZus{}}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}\PY{p}{,} \PY{n}{sample\PYZus{}size}\PY{p}{)}\PY{p}{)}
+                 
+             \PY{c+c1}{\PYZsh{} Return the results}
+             \PY{k}{return} \PY{n}{results}
+\end{Verbatim}
+
+
+    \subsubsection{Implementation: Initial Model
+Evaluation}\label{implementation-initial-model-evaluation}
+
+In the code cell, you will need to implement the following: - Import the
+three supervised learning models you've discussed in the previous
+section. - Initialize the three models and store them in
+\texttt{\textquotesingle{}clf\_A\textquotesingle{}},
+\texttt{\textquotesingle{}clf\_B\textquotesingle{}}, and
+\texttt{\textquotesingle{}clf\_C\textquotesingle{}}. - Use a
+\texttt{\textquotesingle{}random\_state\textquotesingle{}} for each
+model you use, if provided. - \textbf{Note:} Use the default settings
+for each model --- you will tune one specific model in a later section.
+- Calculate the number of records equal to 1\%, 10\%, and 100\% of the
+training data. - Store those values in
+\texttt{\textquotesingle{}samples\_1\textquotesingle{}},
+\texttt{\textquotesingle{}samples\_10\textquotesingle{}}, and
+\texttt{\textquotesingle{}samples\_100\textquotesingle{}} respectively.
+
+\textbf{Note:} Depending on which algorithms you chose, the following
+implementation may take some time to run!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} TODO: Import the three supervised learning models from sklearn}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.svm} \PY{k+kn}{import} \PY{n}{SVC}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{tree}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.neighbors} \PY{k+kn}{import} \PY{n}{KNeighborsClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{linear\PYZus{}model}\PY{p}{,} \PY{n}{datasets}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.naive\PYZus{}bayes} \PY{k+kn}{import} \PY{n}{GaussianNB}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{RandomForestClassifier}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Initialize the three models}
+         \PY{n}{clf\PYZus{}A} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}clf\PYZus{}A=linear\PYZus{}model.LogisticRegression(C=1e5)}
+         
+         \PY{n}{clf\PYZus{}B} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf\PYZus{}C} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Calculate the number of samples for 1\PYZpc{}, 10\PYZpc{}, and 100\PYZpc{} of the training data}
+         \PY{c+c1}{\PYZsh{} HINT: samples\PYZus{}100 is the entire training set i.e. len(y\PYZus{}train)}
+         \PY{c+c1}{\PYZsh{} HINT: samples\PYZus{}10 is 10\PYZpc{} of samples\PYZus{}100 (ensure to set the count of the values to be `int` and not `float`)}
+         \PY{c+c1}{\PYZsh{} HINT: samples\PYZus{}1 is 1\PYZpc{} of samples\PYZus{}100 (ensure to set the count of the values to be `int` and not `float`)}
+         \PY{n}{samples\PYZus{}100} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{samples\PYZus{}10} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{samples\PYZus{}1} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{*}\PY{l+m+mf}{0.01}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Collect results on the learners}
+         \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{clf} \PY{o+ow}{in} \PY{p}{[} \PY{n}{clf\PYZus{}A}\PY{p}{,}\PY{n}{clf\PYZus{}B}\PY{p}{,} \PY{n}{clf\PYZus{}C}\PY{p}{]}\PY{p}{:}
+             \PY{n}{clf\PYZus{}name} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}class\PYZus{}\PYZus{}}\PY{o}{.}\PY{n+nv+vm}{\PYZus{}\PYZus{}name\PYZus{}\PYZus{}}
+             \PY{n}{results}\PY{p}{[}\PY{n}{clf\PYZus{}name}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{samples} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{p}{[}\PY{n}{samples\PYZus{}1}\PY{p}{,} \PY{n}{samples\PYZus{}10}\PY{p}{,} \PY{n}{samples\PYZus{}100}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{results}\PY{p}{[}\PY{n}{clf\PYZus{}name}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PYZbs{}
+                 \PY{n}{train\PYZus{}predict}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{samples}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Run metrics visualization for the three supervised learning models chosen}
+         \PY{n}{vs}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{n}{accuracy}\PY{p}{,} \PY{n}{fscore}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RandomForestClassifier trained on 361 samples.
+RandomForestClassifier trained on 3617 samples.
+RandomForestClassifier trained on 36177 samples.
+DecisionTreeClassifier trained on 361 samples.
+DecisionTreeClassifier trained on 3617 samples.
+DecisionTreeClassifier trained on 36177 samples.
+KNeighborsClassifier trained on 361 samples.
+KNeighborsClassifier trained on 3617 samples.
+KNeighborsClassifier trained on 36177 samples.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Improving Results}\label{improving-results}
+
+In this final section, you will choose from the three supervised
+learning models the \emph{best} model to use on the student data. You
+will then perform a grid search optimization for the model over the
+entire training set (\texttt{X\_train} and \texttt{y\_train}) by tuning
+at least one parameter to improve upon the untuned model's F-score.
+
+    \subsubsection{Question 3 - Choosing the Best
+Model}\label{question-3---choosing-the-best-model}
+
+\begin{itemize}
+\tightlist
+\item
+  Based on the evaluation you performed earlier, in one to two
+  paragraphs, explain to \emph{CharityML} which of the three models you
+  believe to be most appropriate for the task of identifying individuals
+  that make more than \$50,000.
+\end{itemize}
+
+** HINT: ** Look at the graph at the bottom left from the cell above(the
+visualization created by
+\texttt{vs.evaluate(results,\ accuracy,\ fscore)}) and check the F score
+for the testing set when 100\% of the training set is used. Which model
+has the highest score? Your answer should include discussion of the: *
+metrics - F score on the testing when 100\% of the training data is
+used, * prediction/training time * the algorithm's suitability for the
+data.
+
+    \textbf{Answer: }Ensemble Methods ( Random Forest )
+
+    \subsubsection{Question 4 - Describing the Model in Layman's
+Terms}\label{question-4---describing-the-model-in-laymans-terms}
+
+\begin{itemize}
+\tightlist
+\item
+  In one to two paragraphs, explain to \emph{CharityML}, in layman's
+  terms, how the final model chosen is supposed to work. Be sure that
+  you are describing the major qualities of the model, such as how the
+  model is trained and how the model makes a prediction. Avoid using
+  advanced mathematical jargon, such as describing equations.
+\end{itemize}
+
+** HINT: **
+
+When explaining your model, if using external resources please include
+all citations.
+
+    \textbf{Answer: } Random Forest is widely used.It is excellant
+performance on many problems.It doesn't require careful normalization of
+features or extensive parameter tuning.Like Decision tree ,it handles a
+mixture of feature types. It can easily be parallelized across multiple
+CPU. Eg:-In our case we have multiple fatures that determine income of a
+person.So it choosed automatically which feature to select make decision
+tree
+
+    \subsubsection{Implementation: Model
+Tuning}\label{implementation-model-tuning}
+
+Fine tune the chosen model. Use grid search (\texttt{GridSearchCV}) with
+at least one important parameter tuned with at least 3 different values.
+You will need to use the entire training set for this. In the code cell
+below, you will need to implement the following: - Import
+\href{http://scikit-learn.org/0.17/modules/generated/sklearn.grid_search.GridSearchCV.html}{\texttt{sklearn.grid\_search.GridSearchCV}}
+and
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.metrics.make_scorer.html}{\texttt{sklearn.metrics.make\_scorer}}.
+- Initialize the classifier you've chosen and store it in \texttt{clf}.
+- Set a \texttt{random\_state} if one is available to the same state you
+set before. - Create a dictionary of parameters you wish to tune for the
+chosen model. - Example:
+\texttt{parameters\ =\ \{\textquotesingle{}parameter\textquotesingle{}\ :\ {[}list\ of\ values{]}\}}.
+- \textbf{Note:} Avoid tuning the \texttt{max\_features} parameter of
+your learner if that parameter is available! - Use \texttt{make\_scorer}
+to create an \texttt{fbeta\_score} scoring object (with
+\(\beta = 0.5\)). - Perform grid search on the classifier \texttt{clf}
+using the \texttt{\textquotesingle{}scorer\textquotesingle{}}, and store
+it in \texttt{grid\_obj}. - Fit the grid search object to the training
+data (\texttt{X\_train}, \texttt{y\_train}), and store it in
+\texttt{grid\_fit}.
+
+\textbf{Note:} Depending on the algorithm chosen and the parameter list,
+the following implementation may take some time to run!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} TODO: Import \PYZsq{}GridSearchCV\PYZsq{}, \PYZsq{}make\PYZus{}scorer\PYZsq{}, and any other necessary libraries}
+        \PY{k+kn}{from}  \PY{n+nn}{sklearn.grid\PYZus{}search} \PY{k+kn}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from}  \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{make\PYZus{}scorer}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k+kn}{import} \PY{n}{time}
+        \PY{k+kn}{from} \PY{n+nn}{scipy.stats} \PY{k+kn}{import} \PY{n}{randint} \PY{k}{as} \PY{n}{sp\PYZus{}randint}
+        \PY{c+c1}{\PYZsh{} TODO: Initialize the classifier}
+        \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} TODO: Create the parameters list you wish to tune, using a dictionary if needed.}
+        \PY{c+c1}{\PYZsh{} HINT: parameters = \PYZob{}\PYZsq{}parameter\PYZus{}1\PYZsq{}: [value1, value2], \PYZsq{}parameter\PYZus{}2\PYZsq{}: [value1, value2]\PYZcb{}}
+        \PY{c+c1}{\PYZsh{} specify parameters and distributions to sample from}
+        \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{n+nb+bp}{None}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bootstrap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n+nb+bp}{False}\PY{p}{]}\PY{p}{,}
+                      \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{criterion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{} run grid search}
+        
+        \PY{c+c1}{\PYZsh{} run randomized search}
+        \PY{n}{n\PYZus{}iter\PYZus{}search} \PY{o}{=} \PY{l+m+mi}{20}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Make an fbeta\PYZus{}score scoring object using make\PYZus{}scorer()}
+        \PY{n}{scorer} \PY{o}{=} \PY{n}{make\PYZus{}scorer}\PY{p}{(}\PY{n}{fbeta\PYZus{}score}\PY{p}{,} \PY{n}{beta}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Perform grid search on the classifier using \PYZsq{}scorer\PYZsq{} as the scoring method using GridSearchCV()}
+        \PY{n}{grid\PYZus{}obj} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} TODO: Fit the grid search object to the training data and find the optimal parameters using fit()}
+        \PY{n}{grid\PYZus{}fit} \PY{o}{=} \PY{n}{grid\PYZus{}obj}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Get the estimator}
+        \PY{n}{best\PYZus{}clf} \PY{o}{=} \PY{n}{grid\PYZus{}fit}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+        
+        \PY{c+c1}{\PYZsh{} Make predictions using the unoptimized and model}
+        \PY{n}{predictions} \PY{o}{=} \PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        \PY{n}{best\PYZus{}predictions} \PY{o}{=} \PY{n}{best\PYZus{}clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Report the before\PYZhy{}and\PYZhy{}afterscores}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unoptimized model}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy score on testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F\PYZhy{}score on testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fbeta\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{predictions}\PY{p}{,} \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Optimized Model}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Final accuracy score on the testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{best\PYZus{}predictions}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Final F\PYZhy{}score on the testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fbeta\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{best\PYZus{}predictions}\PY{p}{,} \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{average}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Question 5 - Final Model
+Evaluation}\label{question-5---final-model-evaluation}
+
+\begin{itemize}
+\tightlist
+\item
+  What is your optimized model's accuracy and F-score on the testing
+  data?
+\item
+  Are these scores better or worse than the unoptimized model?
+\item
+  How do the results from your optimized model compare to the naive
+  predictor benchmarks you found earlier in \textbf{Question 1}?\_
+\end{itemize}
+
+\textbf{Note:} Fill in the table below with your results, and then
+provide discussion in the \textbf{Answer} box.
+
+    \paragraph{Results:}\label{results}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Metric & Unoptimized Model & Optimized Model\tabularnewline
+\midrule
+\endhead
+Accuracy Score & &\tabularnewline
+F-score & & EXAMPLE\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \textbf{Answer: }
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\subsection{Feature Importance}\label{feature-importance}
+
+An important task when performing supervised learning on a dataset like
+the census data we study here is determining which features provide the
+most predictive power. By focusing on the relationship between only a
+few crucial features and the target label we simplify our understanding
+of the phenomenon, which is most always a useful thing to do. In the
+case of this project, that means we wish to identify a small number of
+features that most strongly predict whether an individual makes at most
+or more than \$50,000.
+
+Choose a scikit-learn classifier (e.g., adaboost, random forests) that
+has a \texttt{feature\_importance\_} attribute, which is a function that
+ranks the importance of features according to the chosen classifier. In
+the next python cell fit this classifier to training set and use this
+attribute to determine the top 5 most important features for the census
+dataset.
+
+    \subsubsection{Question 6 - Feature Relevance
+Observation}\label{question-6---feature-relevance-observation}
+
+When \textbf{Exploring the Data}, it was shown there are thirteen
+available features for each individual on record in the census data. Of
+these thirteen records, which five features do you believe to be most
+important for prediction, and in what order would you rank them and why?
+
+    \textbf{Answer:}
+
+    \subsubsection{Implementation - Extracting Feature
+Importance}\label{implementation---extracting-feature-importance}
+
+Choose a \texttt{scikit-learn} supervised learning algorithm that has a
+\texttt{feature\_importance\_} attribute availble for it. This attribute
+is a function that ranks the importance of each feature when making
+predictions based on the chosen algorithm.
+
+In the code cell below, you will need to implement the following: -
+Import a supervised learning model from sklearn if it is different from
+the three used earlier. - Train the supervised model on the entire
+training set. - Extract the feature importances using
+\texttt{\textquotesingle{}.feature\_importances\_\textquotesingle{}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} TODO: Import a supervised learning model that has \PYZsq{}feature\PYZus{}importances\PYZus{}\PYZsq{}}
+        
+        
+        \PY{c+c1}{\PYZsh{} TODO: Train the supervised model on the training set using .fit(X\PYZus{}train, y\PYZus{}train)}
+        \PY{n}{model} \PY{o}{=} \PY{n+nb+bp}{None}
+        
+        \PY{c+c1}{\PYZsh{} TODO: Extract the feature importances using .feature\PYZus{}importances\PYZus{} }
+        \PY{n}{importances} \PY{o}{=} \PY{n+nb+bp}{None}
+        
+        \PY{c+c1}{\PYZsh{} Plot}
+        \PY{n}{vs}\PY{o}{.}\PY{n}{feature\PYZus{}plot}\PY{p}{(}\PY{n}{importances}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Question 7 - Extracting Feature
+Importance}\label{question-7---extracting-feature-importance}
+
+Observe the visualization created above which displays the five most
+relevant features for predicting if an individual makes at most or above
+\$50,000.\\
+* How do these five features compare to the five features you discussed
+in \textbf{Question 6}? * If you were close to the same answer, how does
+this visualization confirm your thoughts? * If you were not close, why
+do you think these features are more relevant?
+
+    \textbf{Answer:}
+
+    \subsubsection{Feature Selection}\label{feature-selection}
+
+How does a model perform if we only use a subset of all the available
+features in the data? With less features required to train, the
+expectation is that training and prediction time is much lower --- at
+the cost of performance metrics. From the visualization above, we see
+that the top five most important features contribute more than half of
+the importance of \textbf{all} features present in the data. This hints
+that we can attempt to \emph{reduce the feature space} and simplify the
+information required for the model to learn. The code cell below will
+use the same optimized model you found earlier, and train it on the same
+training set \emph{with only the top five important features}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Import functionality for cloning a model}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.base} \PY{k+kn}{import} \PY{n}{clone}
+        
+        \PY{c+c1}{\PYZsh{} Reduce the feature space}
+        \PY{n}{X\PYZus{}train\PYZus{}reduced} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+        \PY{n}{X\PYZus{}test\PYZus{}reduced} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Train on the \PYZdq{}best\PYZdq{} model found from grid search earlier}
+        \PY{n}{clf} \PY{o}{=} \PY{p}{(}\PY{n}{clone}\PY{p}{(}\PY{n}{best\PYZus{}clf}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}reduced}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Make new predictions}
+        \PY{n}{reduced\PYZus{}predictions} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}reduced}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Report scores from the final model using both versions of data}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Final Model trained on full data}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy on testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{best\PYZus{}predictions}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F\PYZhy{}score on testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fbeta\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{best\PYZus{}predictions}\PY{p}{,} \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Final Model trained on reduced data}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy on testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{reduced\PYZus{}predictions}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F\PYZhy{}score on testing data: \PYZob{}:.4f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{fbeta\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{reduced\PYZus{}predictions}\PY{p}{,} \PY{n}{beta} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Question 8 - Effects of Feature
+Selection}\label{question-8---effects-of-feature-selection}
+
+\begin{itemize}
+\tightlist
+\item
+  How does the final model's F-score and accuracy score on the reduced
+  data using only five features compare to those same scores when all
+  features are used?
+\item
+  If training time was a factor, would you consider using the reduced
+  data as your training set?
+\end{itemize}
+
+    \textbf{Answer:}
+
+    \begin{quote}
+\textbf{Note}: Once you have completed all of the code implementations
+and successfully answered each question above, you may finalize your
+work by exporting the iPython Notebook as an HTML document. You can do
+this by using the menu above and navigating to\\
+\textbf{File -\textgreater{} Download as -\textgreater{} HTML (.html)}.
+Include the finished document along with this notebook as your
+submission.
+\end{quote}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
