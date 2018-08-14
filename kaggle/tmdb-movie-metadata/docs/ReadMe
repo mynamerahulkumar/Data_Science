@@ -1,0 +1,15 @@
+I have analyzed the TMDB movies database.This data set contains information about 10,000
+movies collected from The Movie Database (TMDb), including user ratings and revenue.
+Description about investigation
+
+● I have collected the data from kaggle and I have tried to analyze some of the open
+question.
+● I have investigated the relation between revenue and budget.I have also analyzed which
+is the best release month for high revenues.
+● I have analyzed the popularity of movies and number of movies done by directors.
+● I have tried to analyze which is good release month in terms of revenue
+Data Wrangling
+● In analyzing the release month vs revenue.I have first group the revenue by month.Then
+I have plotted the graph.
+● In analyzing the top 10 high budget or revenue.First I have fetched the top movies based
+on budget or revenue respectively and then plotted the graph.
