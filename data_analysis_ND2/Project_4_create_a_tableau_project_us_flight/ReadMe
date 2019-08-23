@@ -1,0 +1,26 @@
+Airport flight delay and Reason -Tableau
+ 
+Final link:-
+https://public.tableau.com/profile/rahul.kumar1488#!/vizhome/FligtprojectTableau/AirportFlightDelayandReason?publish=yes
+
+First Link:-
+https://public.tableau.com/profile/rahul.kumar1488#!/vizhome/FligtprojectTableau/Airport_flight_delay
+
+
+
+I have shown flight delay of airports in USA.I have calculated airport delay by taking average of
+departure delay and arrival delay.
+We can see that airport code PUB has maximum delay.I have looked down the reason for delay
+There are two main reason for flight delay in PUB.
+○ NAS DELAY
+○ Weather Delay
+Nas delay airport authorities and government can controll.It is heavy volume traffic problem.If
+government can provide more space to the airport problem can be solved.Weather delay is
+natural phenomena.
+There are mainly five reason for flight delay.Mostly flight delay caused by Late aircraft
+delay,second is NAS delay ,third is carrier delay,4th is Weather delay and last is security Delay
+We can see that weather delay is mostly in december and second in july month.Minimum
+weather delay is in october and second minimum
+We can see that most of the cancellation caused by bad weather .Second most reason for
+cancellation is Carrier delay which is almost equal to weather and third NAS.There is no flight
+cancellation due to Security
