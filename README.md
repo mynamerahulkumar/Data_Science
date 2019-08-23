@@ -1,5 +1,5 @@
 Data Science is an exciting field to work in, combining advanced statistical and quantitative skills with real-world programming ability. There are many potential programming languages that the aspiring data scientist might consider specializing in.
-While there is no correct answer, there are several things to take into consideration. Your success as a data scientist will depend on many points,including :---
+While there is no correct answer, there are several things to take into consideration. Your success as a data scientist will depend on many points,including :--
 
 
 Specificity
