@@ -2,7 +2,7 @@ Data Science is an exciting field to work in, combining advanced statistical and
 While there is no correct answer, there are several things to take into consideration. Your success as a data scientist will depend on many points,including :--
 
 
-Specificity
+Specificity 
 
 
 When it comes to advanced data science, you will only get so far reinventing the wheel each time. Learn to master the various packages and modules offered in your chosen language. The extent to which this is possible depends on what domain-specific packages are available to you in the first place!
