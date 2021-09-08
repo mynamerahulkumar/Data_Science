@@ -24,4 +24,4 @@ In some cases it is vital to optimize the performance of your code, especially w
 To some extent, these can be seen as a pair of axes (Generality-Specificity, Performance-Productivity). Each of the languages below fall somewhere on these spectra.
 
 
-With these core principles in mind, let’s take a look at some of the more popular languages used in data science. What follows is a combination of research and personal experience of myself, friends and colleagues — but it is by no means definitive! In approximately order of popularity, here goes:
+With these core principles in mind, let’s take a look at some of the more popular languages used in data science. What follows is a combination of research and personal experience  of myself, friends and colleagues — but it is by no means definitive! In approximately order of popularity, here goes:
